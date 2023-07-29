@@ -63,6 +63,8 @@ Open 4 files as rt
 
 
 write to unknown file function goes here 
+     append index1 and index2 to header line for R1 and R4
+     write all 4 lines of R1 or R4 to the respective unknown file
 
 return counters
 
