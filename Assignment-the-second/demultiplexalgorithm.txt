@@ -1,0 +1,69 @@
+Note to the reviewer: Please be brutal! I take criticism well and 
+     if you fix my code you are only helping me improve my skills :-)
+
+Algorithm goals:
+    The following algorithm will de-multiplex four input FASTQ files 
+    2 with biological reads:
+    1294_S1_L008_R1_001.fastq.gz
+    1294_S1_L008_R4_001.fastq.gz
+
+    and 2 with index reads:
+    1294_S1_L008_R2_001.fastq.gz
+    1294_S1_L008_R3_001.fastq.gz
+
+    and will output:
+    <one R1 FASTQ file and one R2 FASTQ file per matching index-pair>
+    <another two FASTQ files for non-matching index-pairs (index-hopping)> and
+    <two additional FASTQ files when one or both index reads are unknown or low quality>
+
+    The algorithm will report:
+    the number of read-pairs with properly matched indexes (per index-pair),
+    the number of read pairs with index-hopping observed, and
+    the number of read-pairs with unknown index(es).
+
+start algorith:
+
+import modules
+init global variables
+
+Open 4 files as rt 
+    Read and strip header line
+    Read and strip sequence line
+    Read and strip plus line
+    Read and strip quality score line
+
+    If R2 index has N base 
+        call function: write to unknown file 
+        increase unknown counter
+    If R3 index has N base 
+        call function: write to unknown file 
+        increase unknown counter
+    Call reverse complement module from bioinfo.py 
+        reverse complement header in R3
+    Check for match between R2 and R3 headers
+        If R2 does NOT match R3
+             write to index hopped file
+             increase index hopped counter
+        If R2 DOES match R3
+             Check quality scores - if R2 mean quality score <= 32 #low tolerance for index Q score
+                  call function: write to unknown file
+                  increase unknown counter
+             Check quality scores - if R3 mean quality score <= 32 #low tolerance for index Q score
+                  call function: write to unknown file
+                  increase unknown counter
+             Check quality scores - if R1 mean quality score <= 30 #more lenient for read Q score
+                  call function: write to unknown file
+                  increase unknown counter
+             Check quality scores - if R1 mean quality score <= 30 #more lenient for read Q score
+                  call function: write to unknown file
+                  increase unknown counter
+             ```everything left in the 4 files is a good index/read```
+             write to R1 or R2 index file
+             increase proper match counter
+
+
+write to unknown file function goes here 
+
+return counters
+
+end_algorithm_ike_sanderson
