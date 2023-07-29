@@ -12,7 +12,7 @@ Algorithm goals:
     1294_S1_L008_R3_001.fastq.gz
 
     and will output:
-    <one R1 FASTQ file and one R2 FASTQ file per matching index-pair>
+    <one R1 FASTQ file and one R2 FASTQ file per matching index-pair *this means there should be 48 files like this**>
     <another two FASTQ files for non-matching index-pairs (index-hopping)> and
     <two additional FASTQ files when one or both index reads are unknown or low quality>
 
