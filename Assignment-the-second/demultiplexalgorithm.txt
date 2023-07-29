@@ -66,6 +66,11 @@ write to unknown file function goes here
      append index1 and index2 to header line for R1 and R4
      write all 4 lines of R1 or R4 to the respective unknown file
 
+need to write reverse complement function and add to bioinfo.py
+     input string, read from back of string(?)
+     return complementary base of whatever is input (use dict?)
+          A:T,T:A,C:G,G:C,N:N
+
 return counters
 
 end_algorithm_ike_sanderson
