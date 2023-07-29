@@ -44,6 +44,8 @@ Open 4 files as rt
     Check for match between R2 and R3 headers
         If R2 does NOT match R3
              write to index hopped file
+                 append index1 and index2 to header line for R1 and R4
+                 write all 4 lines of R1 or R4 to the respective unknown file
              increase index hopped counter
         If R2 DOES match R3
              Check quality scores - if R2 mean quality score <= 32 #low tolerance for index Q score
@@ -60,6 +62,8 @@ Open 4 files as rt
                   increase unknown counter
              ```everything left in the 4 files is a good index/read```
              write to R1 or R2 index file
+                  append index1 and index2 to header line for R1 and R4
+                  write all 4 lines of R1 or R4 to the respective unknown file
              increase proper match counter
 
 
