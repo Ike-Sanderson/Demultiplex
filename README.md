@@ -1,5 +1,5 @@
 # Demultiplexing
-Note to reviewers: my pseudocode algoritm is inside the "Assignment the Second" directory"
+Note to reviewers: my pseudocode algoritm was inside the "Assignment the Second" directory" but I moved it to this directory
 
 ## [Assignment the First](Assignment-the-first)
 Due Saturday, July 29, 2023, 10:00 AM PDT.
