@@ -63,7 +63,7 @@ Open 4 files as rt
              ```everything left in the 4 files is a good index/read```
              write to R1 or R2 index file
                   append index1 and index2 to header line for R1 and R4
-                  write all 4 lines of R1 or R4 to the respective unknown file
+                  write all 4 lines of R1 or R4 to the respective known index file using dictionary key as filename
              increase proper match counter
 
 
