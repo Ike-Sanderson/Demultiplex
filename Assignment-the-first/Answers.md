@@ -17,7 +17,9 @@
     
 ## Part 2
 1. Define the problem
+   The problem is that the files 
 2. Describe output
+   The output will consist of two files for each index (one for the forward read and one for the reverse read) plus two files of unknown or low quality reads
 3. Upload your [4 input FASTQ files](../TEST-input_FASTQ) and your [>=6 expected output FASTQ files](../TEST-output_FASTQ).
 4. Pseudocode
 5. High level functions. For each function, be sure to include:
