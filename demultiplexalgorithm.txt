@@ -33,10 +33,10 @@ Open 4 files as rt
     Read and strip plus line
     Read and strip quality score line
 
-    If R2 index has N base 
+    If R2 sequence/index has N base 
         call function: write to unknown file 
         increase unknown counter
-    If R3 index has N base 
+    If R3 sequence/index has N base 
         call function: write to unknown file 
         increase unknown counter
     Call reverse complement module from bioinfo.py 
