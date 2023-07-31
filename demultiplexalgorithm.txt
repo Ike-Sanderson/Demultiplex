@@ -26,8 +26,9 @@ start algorith:
 Use argparse to set input filenames
 import modules
 init global variables
+init and populate list of indexes from txt file on talapas
 
-Open 4 files as rt 
+while true loop to open 4 files as rt  
     Read and strip header line
     Read and strip sequence line
     Read and strip plus line
