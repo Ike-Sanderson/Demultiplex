@@ -70,14 +70,26 @@ while true loop to open 4 files as rt
              increase proper match counter
 
 
-write to unknown file function goes here 
+write to unknown file function goes here (**maybe? see assertions below)
      append index1 and index2 to header line for R1 and R4
      write all 4 lines of R1 or R4 to the respective unknown file
+def write_unknown(str) -> str:
+     '''this function will append R2 and R3 index values stored in list to header value also 
+     stored in list. Then will pass header and sequence stored from list to write command, appending
+     the header and sequence to the end of the unknown file'''
+assert reverse_complement("it's entirely possible that this is a bad idea and I should just use
+     the script several times rather than try and make it a function")
+assert reverse complement("I'm saying this because I can't think of what I would pass the function")
 
 need to write reverse complement function and add to bioinfo.py
      input string, read from back of string(?)
      return complementary base of whatever is input (use dict?)
           A:T,T:A,C:G,G:C,N:N
+def reverse_complement(str) -> str:
+    '''reads sequence of nuceotides and returns their complementary sequence'''
+    return revcomp
+assert reverse_complement("ACT") == AGT
+assert reverse_complement("NAG") == CTN
 
 return counters
 return output filenames
