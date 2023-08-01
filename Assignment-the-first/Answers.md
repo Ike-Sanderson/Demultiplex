@@ -17,9 +17,9 @@
     
 ## Part 2
 1. Define the problem
-   The problem is that the files 
+   The problem is that the files were the product of a multiplexed output because the lanes can take so many different experimental results and output the data for each of those experiments. The data need to be separated into different reads by index. 
 2. Describe output
-   The output will consist of two files for each index (one for the forward read and one for the reverse read) plus two files of unknown or low quality reads
+   The output will consist of two files for each index (one for the forward read and one for the reverse read) plus two files of unknown or low quality reads, plus two files for index hopped reads. Should be a total of 52 files in this case as we have 24 indices unless for some reason there are no high quality properly mapped reads corresponding to one or more of the indices.
 3. Upload your [4 input FASTQ files](../TEST-input_FASTQ) and your [>=6 expected output FASTQ files](../TEST-output_FASTQ).
 4. Pseudocode
 5. High level functions. For each function, be sure to include:
