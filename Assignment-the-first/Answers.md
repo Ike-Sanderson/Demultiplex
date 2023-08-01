@@ -14,13 +14,30 @@
 
 2. Per-base NT distribution
     1. Use markdown to insert your 4 histograms here.
-    2. The index cutoff score should be high for the index reads; those need to be correct. Looking at the histogram for the R2
+  
+       This is the histogram for R1
+       
+      ![R1 forward read histogram](r1histogram.png)
+
+       This is the histogram for R2
+   
+      ![R2 forward read index histogram](r2histogram.png)
+
+        This is the histogram for R3
+   
+      ![R3 reverse read index histogram](r3histogram.png)
+
+        This is the histogram for R4
+   
+      ![R4 reverse read histogram](r4histogram.png)
+       
+    3. The index cutoff score should be high for the index reads; those need to be correct. Looking at the histogram for the R2
        and R3 average I see that the first couple of positions have lower average scores: around 30. I would like to do a run
        with the cutuff at, say 32 and another with the cutoff at 35 (or 36?) and see if we get enough usable/matched reads
        with 36 to do a BLAST construct. For the R1 and R4 files, the average is quite high for most positions and perhaps a
        score cutoff of 28 is enough to keep out the garbage if there is any. The aligning tool should be able to do its job
        and give us a good guess at contigs even if a few bases are poor. At least that's what I think having never really done           this before.
-    3. Looking at the symbols, there's no way the encoding could be anything other than Phred 33. It cannot be Phred 64 because          there are values less than 64 ( e.g. '#' which has a score of 2)
+    4. Looking at the symbols, there's no way the encoding could be anything other than Phred 33. It cannot be Phred 64 because          there are values less than 64 ( e.g. '#' which has a score of 2)
     
 ## Part 2
 1. Define the problem
