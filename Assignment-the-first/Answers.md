@@ -45,11 +45,14 @@
 2. Describe output
    The output will consist of two files for each index (one for the forward read and one for the reverse read) plus two files of unknown or low quality reads, plus two files for index hopped reads. Should be a total of 52 files in this case as we have 24 indices unless for some reason there are no high quality properly mapped reads corresponding to one or more of the indices.
 3. Upload your [4 input FASTQ files](../TEST-input_FASTQ) and your [>=6 expected output FASTQ files](../TEST-output_FASTQ).
-   
-4. [Pseudocode](https://github.com/Ike-Sanderson/Demultiplex/blob/master/demultiplexalgorithm.txt)
-    Note: I made three sets of 4 so that I could better isolate whether my script for the three cases (matched, unknown,
+
+Note: I made three sets of 4 so that I could better isolate whether my script for the three cases (matched, unknown,
    index hopped) is specifically working. If necessary, it will be easy to copy/paste into a single file. There are four
    folders in "Assignment_the_second" directory" with these files and the expected output
+   
+4. [Pseudocode](https://github.com/Ike-Sanderson/Demultiplex/blob/master/demultiplexalgorithm.txt)
+
+    
 6. High level functions. For each function, be sure to include:
     1. Description/doc string
     2. Function headers (name and parameters)
