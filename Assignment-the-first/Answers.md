@@ -3,6 +3,8 @@
 ## Part 1
 1. Be sure to upload your Python script. Provide a link to it here:
 
+[qualscoretohisto.py](https://github.com/Ike-Sanderson/Demultiplex/blob/master/Assignment-the-first/qualscoretohisto.py)
+
 | File name | label | Read length | Phred encoding |
 |---|---|---|---|
 | 1294_S1_L008_R1_001.fastq.gz | R1 | 101 | 33 |
@@ -13,7 +15,7 @@
 2. Per-base NT distribution
     1. Use markdown to insert your 4 histograms here.
     2. **YOUR ANSWER HERE**
-    3. **YOUR ANSWER HERE**
+    3. Looking at the symbols, there's no way the encoding could be anything other than Phred 33. It cannot be Phred 64 because there are values less than 64 ( e.g. '#' which has a score of 2)
     
 ## Part 2
 1. Define the problem
