@@ -1,0 +1,110 @@
+This notebook is to record my work and thinking regarding the class assigbnments related to the 
+demultiplexing project in University of Oregon's BGMP.
+
+We start with four files that contain two reads and two indices. 
+
+Goals: Our goal is to look through a lane of sequencing generated from the 2017 BGMP cohort’s library preps
+ and determine the level of index swapping and undetermined index-pairs, before and after quality filtering of index reads. 
+ In order to do this, we must first demultiplex the data. In Assignment the First, we will develop a strategy to 
+ de-multiplex samples to create 48 FASTQ files that contain acceptable index pairs (read1 and read2 for 24 different index 
+ pairs), two FASTQ files with index-hopped reads-pairs, and two FASTQ files undetermined (non-matching or low quality) 
+ index-pairs.
+
+The four files:
+1294_S1_L008_R1_001.fastq.gz
+1294_S1_L008_R2_001.fastq.gz
+1294_S1_L008_R3_001.fastq.gz
+1294_S1_L008_R4_001.fastq.gz
+
+ Assignment the first:
+Explore the files on the command line and record both bash commands used and understandings gained:
+$ zcat 1294_S1_L008_R1_001.fastq.gz | head
+$ zcat 1294_S1_L008_R2_001.fastq.gz | head
+$ zcat 1294_S1_L008_R3_001.fastq.gz | head
+$ zcat 1294_S1_L008_R4_001.fastq.gz | head
+
+Told me the following: R1 and R4 are biological read files. R2 and R3 are the index files.
+the first header in R1:
+@K00337:83:HJKJNBBXX:8:1101:1265:1191 1:N:0:1
+and first header in R4:
+@K00337:83:HJKJNBBXX:8:1101:1265:1191 4:N:0:1
+
+suggest that the lines correspond to paired reads. 
+
+R2:
+@K00337:83:HJKJNBBXX:8:1101:1265:1191 2:N:0:1
+NCTTCGAC
+@K00337:83:HJKJNBBXX:8:1101:1265:1191 3:N:0:1
+NTCGAAGA
+Show me that the index sequences in R3 are the reverse complement of the sequences in R2.
+
+$ zcat 1294_S1_L008_R1_001.fastq.gz | head | wc -L
+tells me that the sequence lines are 101 characters long
+
+$ zcat 1294_S1_L008_R1_001.fastq.gz | head -120
+showed me that lots of the quality scores have "3" as the second 
+character score (means Phred 33 must be what is used; cannot be Phred 64 because # codes for 2)
+
+at this point I focused on getting the pseudo code finished, polishing the functions in the bioinfo module
+
+then went back and got help from Sasha to wrap my head around the code needed to turn PS4 into what would work here. 
+Got that up and running. Ran into a bit of trouble when the histograms for R2 and R3 came out 101 bp wide. Tracked my error
+to bioinfo function init_list in which I was stipulating 101 value list. Had to hard code a width of 8 for that to fix it. 
+Still not sure how to do that better. I thought I could use argparse to input a line length but I didn't get it right.
+In any case, I made it work for tghe histograms.
+
+Used this sbatch script to run the python script:
+
+#!/bin/bash
+#SBATCH --account=bgmp           ### change this to your actual account for charging
+#SBATCH --partition=compute       ### queue to submit to
+#SBATCH --job-name=star-align     ### job name
+#SBATCH --output=hostname_%j.out   ### file in which to store job stdout
+#SBATCH --error=hostname_%j.err    ### file in which to store job stderr
+#SBATCH --time=2:00:00                ### wall-clock time limit, in minutes
+#SBATCH --mem=32G                  ### memory limit per node, in MB
+#SBATCH --nodes=1                 ### number of nodes to use
+#SBATCH --cpus-per-task=4         ### number of cores for each task
+
+conda activate base
+
+/usr/bin/time -v python qualscoretohisto.py -f /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R3_001.fastq.gz -l 8 -o r3histogram.png
+
+python script was:
+qualscoretohisto.py
+
+Then I made the test files. I was going to make one set of 4 files that had examples of matched, unknown, and hopped 
+sequences but realized if there was an error it would hard to track down. So I made three sets of test files, one for each
+condition.
+
+Nope. That was a poor choice. After spending way too much time switching input files I made one set of test files after all.
+
+Ran the final script on Talapas 
+$ sbatch runpython.sh
+
+using this sbatch script called runpython.sh
+#!/bin/bash
+#SBATCH --account=bgmp           ### change this to your actual account for charging
+#SBATCH --partition=compute       ### queue to submit to
+#SBATCH --job-name=demultiplex     ### job name
+#SBATCH --output=demultiplex_%j.out   ### file in which to store job stdout
+#SBATCH --error=demultiplex_%j.err    ### file in which to store job stderr
+#SBATCH --time=4:00:00                ### wall-clock time limit, in minutes
+#SBATCH --mem=32G                  ### memory limit per node, in MB
+#SBATCH --nodes=1                 ### number of nodes to use
+#SBATCH --cpus-per-task=1         ### number of cores for each task
+
+conda activate base
+
+/usr/bin/time -v python demultiplex.py -f1 /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R1_001.fastq.gz -f2 /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R2_001.fastq.gz -f3 /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R3_001.fastq.gz -f4 /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R4_001.fastq.gz
+
+
+Had to do a lot of problem solvbing and ended up turning in the proiject late. Index hopped files wre writing correctly,
+ and counting correctly, but not tallying correctly in the final report. Eventually tracked down the error to my failure 
+ to write to the combodict, which is the dictionary I used to keep track of the index hopped reads. So I was writing and 
+ counting correctly in the loop but I was not increasing the value of the respective hopped reads in the dictionary. 
+ Compounding the error was my choice to use the itertools function called combinations. This did not run through each 
+ permutation with the indexes both first and second. So it was skipping half of the keys in the dictionary. I actually
+ lucked out by having the test file fail to register the hopped file, forcing me to notice it before the fifth run on talapas.
+ I'm not sure I would have figured out what was going on with the Final report and would probably have given up. So I switched 
+ to the itertools function permutations.
